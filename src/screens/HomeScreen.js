@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  Button,
-  Linking,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment } from "../store/slices/counterSlice";
+import { decrement, increment, setValue } from "../store/slices/counterSlice";
 
 function HomeScreen({ navigation }) {
   const count = useSelector((state) => state.counter.value);
@@ -29,6 +22,8 @@ function HomeScreen({ navigation }) {
         title={"Decrease Counter"}
         onPress={() => dispatch(decrement())}
       />
+      <View style={{ height: 20 }} />
+      <Button title={"Reset Counter"} onPress={() => dispatch(setValue(0))} />
       <View style={{ height: 20 }} />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Button
