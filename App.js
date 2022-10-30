@@ -1,23 +1,48 @@
 import React from "react";
 import "react-native-gesture-handler";
-import { Provider } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { store } from "./src/store/store";
-import HomeScreen from "./src/screens/HomeScreen";
-import SecondPage from "./src/screens/SecondPage";
+import Home from "./screens/Home";
+import Details from "./screens/Details";
+
+import { store } from "./store/store";
+import { Provider } from "react-redux";
+
+import { useFonts } from "expo-font";
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "transparent",
+  },
+};
+const App = () => {
+  const [loaded] = useFonts({
+    InterBold: require("./assets/fonts/Inter-Bold.ttf"),
+    InterSemiBold: require("./assets/fonts/Inter-SemiBold.ttf"),
+    InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
+    InterRegular: require("./assets/fonts/Inter-Regular.ttf"),
+    InterLight: require("./assets/fonts/Inter-Light.ttf"),
+  });
+  if (!loaded) return null;
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={"Home"}>
-          <Stack.Screen name={"Home"} component={HomeScreen} />
-          <Stack.Screen name={"SecondPage"} component={SecondPage} />
+      <NavigationContainer theme={theme}>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          initialRouteName="Home"
+        >
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Details" component={Details} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
-}
+};
+
+export default App;
