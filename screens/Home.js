@@ -35,7 +35,7 @@ const Home = () => {
         >
           <View
             style={{
-              height: 300,
+              height: "100%,
               backgroundColor: COLORS.primary,
             }}
           />
